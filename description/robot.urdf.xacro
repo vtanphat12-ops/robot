@@ -1,7 +1,25 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
+    <xacro:include filename="gazebo_control.xacro" />   
+    <xacro:include filename="robot_core.xacro" />
+    <!-- CẤU HÌNH GAZEBO CHO BÁNH ĐA HƯỚNG (CASTER WHEEL) - GIẢM MA SÁT -->
+    <gazebo reference="caster_wheel">
+        <material>Gazebo/Black</material>
+        <mu1 value="0.001"/>
+        <mu2 value="0.001"/>
+    </gazebo>
 
-    <!-- Example link -->
-    <link name="base_link"></link>
+    <!-- CẤU HÌNH MÀU SẮC CHO GAZEBO -->
+    <gazebo reference="chassis">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="left_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <gazebo reference="right_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
 
 </robot>
