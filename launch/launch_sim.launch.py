@@ -1,11 +1,8 @@
 import os
-
 from ament_index_python.packages import get_package_share_directory
-
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-
 from launch_ros.actions import Node
 
 def generate_launch_description():
@@ -19,12 +16,15 @@ def generate_launch_description():
         )]), launch_arguments={'use_sim_time': 'true'}.items()
     )
 
-    # 2. Khởi động Gazebo Sim với world rỗng và tự động chạy (-r)
+    # Đường dẫn tới file world.sdf chứa plugin cảm biến
+    world_file = os.path.join(get_package_share_directory(package_name), 'worlds', 'world.sdf')
+
+    # 2. Khởi động Gazebo Sim cùng file world.sdf
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py'
         )]),
-        launch_arguments={'gz_args': '-r empty.sdf'}.items()
+        launch_arguments={'gz_args': f'-r {world_file}'}.items()
     )
 
     # 3. Spawn mô hình robot vào không gian mô phỏng
